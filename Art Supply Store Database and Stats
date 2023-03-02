@@ -1,0 +1,29 @@
+--Create an art store database
+
+CREATE TABLE art_store (id INTEGER PRIMARY KEY, name TEXT, price INTEGER, quanity INTEGER, aisle INTEGER, type TEXT);
+
+INSERT INTO art_store VALUES (1, "Sketch Book", 4.99, 5, 1, "canvas");
+INSERT INTO art_store VALUES (2, "Markers", 3.99, 3, 1, "tools");
+INSERT INTO art_store VALUES (3, "Paint Brushes", 3.99, 2, 2, "tools");
+INSERT INTO art_store VALUES (4, "Canvas", 9.99, 2, 2, "canvas");
+INSERT INTO art_store VALUES (5, "Coloring Book", 1.99, 5, 1, "canvas");
+INSERT INTO art_store VALUES (6, "Crayons", 1.99, 6, 1, "tools");
+INSERT INTO art_store VALUES (7, "Spray Paint", 4.99, 3, 5, "tools");
+INSERT INTO art_store VALUES (8, "Yarn", 4.99, 6, 10, "fabrics");
+INSERT INTO art_store VALUES (9, "Knitting Needles", 6.99, 4, 10, "fabrics");
+INSERT INTO art_store VALUES (10, "Tread", 3.99, 9, 10, "fabrics");
+INSERT INTO art_store VALUES (11, "Sewing Machine", 199.99, 2, 10, "fabrics");
+INSERT INTO art_store VALUES (12, "Fabrics", 14.99, 8, 10, "fabrics");
+INSERT INTO art_store VALUES (13, "Watercolors", 3.99, 3, 1, "tools");
+INSERT INTO art_store VALUES (14, "Watercolor Paper", 4.99, 5, 1, "canvas");
+INSERT INTO art_store VALUES (15, "Colored Pencils", 3.99, 5, 1, "tools");
+
+--display the database ordered by price.
+SELECT * FROM art_store ORDER BY price desc;
+
+--display the database by type of inventory.
+SELECT type, name, price FROM art_store ORDER BY type;
+
+--what is the inventory quantity per aisle?
+SELECT aisle, SUM(quantity) FROM art_store GROUP BY aisle;
+
