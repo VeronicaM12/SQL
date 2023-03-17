@@ -1,4 +1,4 @@
-/* Selected a prefilled table with data and used my own quaries at the bottom */
+/* Created quaries from a prefilled database */
 
 
 CREATE TABLE sales(
