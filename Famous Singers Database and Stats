@@ -1,0 +1,93 @@
+/* Created tables with database of famous singers and created advanced queries to show stats */
+
+
+CREATE TABLE singers (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, date_of_birth TEXT, age INTEGER, acting_roles TEXT);
+
+INSERT INTO singers (name, date_of_birth, age, acting_roles) VALUES ("Selena Gomez", "07/22/1992", 30, "yes");
+INSERT INTO singers (name, date_of_birth, age, acting_roles) VALUES ("Justin Bieber", "03/01/1994", 29, "No");
+INSERT INTO singers (name, date_of_birth, age, acting_roles) VALUES ("Ariana Grande", "06/26/1993", 29, "yes");
+INSERT INTO singers (name, date_of_birth, age, acting_roles) VALUES ("Jennifer Lopez", "07/24/1969", 53, "yes");
+INSERT INTO singers (name, date_of_birth, age, acting_roles) VALUES ("Marc Anthony", "09/16/1968", 54, "yes");
+INSERT INTO singers (name, date_of_birth, age, acting_roles) VALUES ("Nicki Minaj", "12/08/1982", 40, "yes");
+
+
+CREATE TABLE songs (id INTEGER PRIMARY KEY AUTOINCREMENT, singer_id INTEGER, name TEXT, year_released INTEGER);
+
+INSERT INTO songs (singer_id, name, year_released) VALUES (1, "lose You To Love Me", 2019);
+INSERT INTO songs (singer_id, name, year_released) VALUES (1, "Same Old Love", 2015);
+INSERT INTO songs (singer_id, name, year_released) VALUES (1, "A Year Without Rain", 2010);
+INSERT INTO songs (singer_id, name, year_released) VALUES (1, "Selfish Love", 2021);
+INSERT INTO songs (singer_id, name, year_released) VALUES (2, "Beauty and a Beat", 2012);
+INSERT INTO songs (singer_id, name, year_released) VALUES (2, "Intentions", 2020);
+INSERT INTO songs (singer_id, name, year_released) VALUES (2, "Stay", 2021);
+INSERT INTO songs (singer_id, name, year_released) VALUES (2, "Loney", 2020);
+INSERT INTO songs (singer_id, name, year_released) VALUES (3, "God is a Woman", 2018);
+INSERT INTO songs (singer_id, name, year_released) VALUES (3, "Santa Tell Me", 2013);
+INSERT INTO songs (singer_id, name, year_released) VALUES (3, "7 Rings", 2019);
+INSERT INTO songs (singer_id, name, year_released) VALUES (3, "Side to Side", 2016);
+INSERT INTO songs (singer_id, name, year_released) VALUES (4, "Jenny from the Block", 2002);
+INSERT INTO songs (singer_id, name, year_released) VALUES (4, "Love Don't Dost a Thing", 2002);
+INSERT INTO songs (singer_id, name, year_released) VALUES (4, "On the Floor", 2011);
+INSERT INTO songs (singer_id, name, year_released) VALUES (4, "Acting Like That", 2014);
+INSERT INTO songs (singer_id, name, year_released) VALUES (5, "I Need to Know", 1999);
+INSERT INTO songs (singer_id, name, year_released) VALUES (5, "You Sang to Me", 2009);
+INSERT INTO songs (singer_id, name, year_released) VALUES (5, "Don't Let Me Leave", 1999);
+INSERT INTO songs (singer_id, name, year_released) VALUES (5, "I've Got You", 2002);
+INSERT INTO songs (singer_id, name, year_released) VALUES (6, "Side to Side", 2016);
+INSERT INTO songs (singer_id, name, year_released) VALUES (6, "Beauty and a Beat", 2012);
+INSERT INTO songs (singer_id, name, year_released) VALUES (6, "Anaconda", 2014);
+INSERT INTO songs (singer_id, name, year_released) VALUES (6, "Beez in the Trap", 2012);
+
+
+CREATE TABLE dating_history (id INTEGER PRIMARY KEY AUTOINCREMENT, dated1_id INTEGER, dated2_id INTEGER);
+
+INSERT INTO dating_history (dated1_id, dated2_id) VALUES (1,2);
+INSERT INTO dating_history (dated1_id, dated2_id) VALUES (4,5);
+
+
+CREATE TABLE duets (id INTEGER PRIMARY KEY AUTOINCREMENT, duet1_id INTEGER, duet2_id INTEGER);
+
+INSERT INTO duets (duet1_id, duet2_id) VALUES (2,6);
+INSERT INTO duets (duet1_id, duet2_id) VALUES (3,6);
+
+
+/* singer, their songs and year released */
+SELECT singers.name AS singer, songs.name AS songs, year_released
+    FROM singers
+    JOIN songs
+    ON singers.id = songs.singer_id
+    ORDER BY year_released ASC;
+
+/* singer, songs after 2015 */
+SELECT singers.name AS singer, songs.name AS songs, year_released
+    FROM singers
+    JOIN songs
+    ON singers.id = songs.singer_id
+    WHERE year_released > 2015
+    ORDER BY year_released ASC;
+
+/* singer dating history */
+SELECT a.name AS "singer", b.name AS "singer dated"
+    FROM dating_history
+    JOIN singers a
+    ON a.id = dating_history.dated1_id
+    JOIN singers b
+    ON b.id = dating_history.dated2_id;
+
+/* duets between singers */
+SELECT a.name AS "singer", b.name AS "duet with singer"
+    FROM duets
+    JOIN singers a
+    ON a.id = duets.duet1_id
+    JOIN singers b
+    ON b.id = duets.duet2_id;
+
+/* singers, 30 or younger  */
+SELECT name as singer, age
+    FROM singers
+    WHERE age <= 30
+    ORDER BY age ASC;
+
+/* singers with acting roles */
+SELECT name AS singer, acting_roles
+    FROM singers;
